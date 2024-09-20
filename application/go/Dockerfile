@@ -12,10 +12,10 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o /matrix-app
+RUN go build -o /go-matrix-api
 
 # Expose the port on which the application will run
 EXPOSE 3030
 
 # Run the executable
-CMD ["/matrix-app"]
+CMD ["/go-matrix-api"]
