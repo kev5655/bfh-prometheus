@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: go-matrix-api-service
+  namespace: application
 spec:
   type: NodePort
   selector:
