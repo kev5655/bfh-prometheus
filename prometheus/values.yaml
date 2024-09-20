@@ -714,7 +714,7 @@ server:
 
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
-    servicePort: 30000
+    servicePort: 80
     sessionAffinity: None
     type: NodePort
 
