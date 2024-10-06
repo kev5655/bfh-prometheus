@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: go-matrix-api
   namespace: application
+  labels:
+    application: go-matrix-api
 spec:
   replicas: 5
   selector:

@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"math/rand"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // MatrixMultiplicationResult holds the result and execution time of matrix multiplication
@@ -81,9 +82,21 @@ func matrixMultiplyHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(result)
 }
 
+func metricsHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Metrics endpoint called")
+	promhttp.Handler().ServeHTTP(w, r)
+}
+
+func slash(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/text")
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintln(w, "hello from go-matrix-api")
+}
+
 func main() {
-	http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/metrics", metricsHandler)
 	http.HandleFunc("/multiply", matrixMultiplyHandler)
+	http.HandleFunc("/", slash)
 	fmt.Println("Server is listening on port 3030...")
 	if err := http.ListenAndServe(":3030", nil); err != nil {
 		fmt.Println("Failed to start server:", err)
