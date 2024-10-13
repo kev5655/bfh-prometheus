@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -13,6 +14,7 @@ import (
 
 // MatrixMultiplicationResult holds the result and execution time of matrix multiplication
 type MatrixMultiplicationResult struct {
+	Application   string `json:"application"`
 	Size          int    `json:"size"`
 	ExecutionTime string `json:"execution_time"`
 }
@@ -72,7 +74,13 @@ func matrixMultiplyHandler(w http.ResponseWriter, r *http.Request) {
 	multiplyMatrices(a, b)
 	elapsed := time.Since(start)
 
+	podName := os.Getenv("HOSTNAME")
+	if podName == "" {
+		podName = "go-matrix-application"
+	}
+
 	result := MatrixMultiplicationResult{
+		Application:   podName,
 		Size:          size,
 		ExecutionTime: elapsed.String(),
 	}

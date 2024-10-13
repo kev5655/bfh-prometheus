@@ -6,7 +6,7 @@ metadata:
   labels:
     application: go-matrix-api
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: go-matrix-api
@@ -16,15 +16,35 @@ spec:
         app: go-matrix-api
     spec:
       containers:
-      - name: go-matrix-api
-        image: go-matrix-api:latest
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 3030
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        - name: go-matrix-api
+          image: go-matrix-api:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3030
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-matrix-api-service
+  namespace: application
+spec:
+  type: NodePort
+  selector:
+    app: go-matrix-api
+  ports:
+    - protocol: TCP
+      port: 3030
+      targetPort: 3030
+      nodePort: 30001
