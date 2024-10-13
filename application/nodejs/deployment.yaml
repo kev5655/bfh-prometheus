@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-matrix-api
+  namespace: application
+  labels:
+    app: node-matrix-api
+spec:
+  replicas: 1 # Number of pod replicas
+  selector:
+    matchLabels:
+      app: node-matrix-api
+  template:
+    metadata:
+      labels:
+        app: node-matrix-api
+    spec:
+      containers:
+        - name: node-matrix-api
+          image: node-matrix-api:latest # Replace with your Docker image
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: HOSTNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-matrix-api-service
+spec:
+  type: NodePort
+  selector:
+    app: node-matrix-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 30002
