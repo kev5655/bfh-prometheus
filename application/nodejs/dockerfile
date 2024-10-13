@@ -23,4 +23,4 @@ EXPOSE 3000
 ENV NODE_ENV=production
 
 # Start the Next.js application using Bun
-CMD ["bun", "next", "start"]
+CMD ["bun", "next", "start", "-p", "3031"]
