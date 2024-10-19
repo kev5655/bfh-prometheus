@@ -3878,10 +3878,6 @@ prometheus:
         scheme: "http"
         static_configs:
           - targets: ["node-matrix-api-service.application:3031"]
-        # scrape_interval: 5s
-        # scrape_timeoout: 1s
-        # scrape_interval: 5s
-        # scrape_timeoout: 1s
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node

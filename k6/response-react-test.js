@@ -3,11 +3,20 @@ import http from 'k6/http';
 
 export const options = {
   stages: [
-    { duration: '1m', target: 10 }, // Ramp up to 10 users
-    { duration: '3m', target: 50 }, // Stay at 50 users
-    { duration: '1m', target: 100 }, // Ramp up to 100 users
-    { duration: '3m', target: 200 }, // Stay at 200 users
-    { duration: '1m', target: 0 },  // Ramp down to 0 users
+    { duration: '1s', target: 10 }, 
+    { duration: '1m', target: 50 }, 
+    { duration: '1m', target: 250 },
+
+    { duration: '1s', target: 10 }, 
+    { duration: '1m', target: 100 }, 
+    { duration: '1m', target: 500 }, 
+
+    { duration: '1s', target: 10 },  
+    { duration: '1m', target: 200 }, 
+    { duration: '1m', target: 1000 }, 
+
+    { duration: '20s', target: 0 }, 
+
   ],
 };
 
@@ -17,16 +26,16 @@ export default function () {
 
   // Run both requests in parallel
   const responses = http.batch([
-    ['GET', url1, null, { tags: { name: 'Multiply1' } }],
-    ['GET', url2, null, { tags: { name: 'Multiply2' } }]
+    ['GET', url1, null, { tags: { name: 'Go Matrix' }, timeout: '60s' }],
+    ['GET', url2, null, { tags: { name: 'Node Matrix' }, timeout: '60s' }]
   ]);
 
   // Optional checks for responses
   check(responses[0], {
-    'Multiply1 is status 200': (r) => r.status === 200,
+    'Go Matrix is status 200': (r) => r.status === 200,
   });
   check(responses[1], {
-    'Multiply2 is status 200': (r) => r.status === 200,
+    'Node Matrix is status 200': (r) => r.status === 200,
   });
 
   sleep(1); // Sleep between iterations
