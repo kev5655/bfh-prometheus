@@ -3866,16 +3866,22 @@ prometheus:
     ## port to 2379 and allow etcd scraping provided it is running on all Kubernetes master nodes
     ##
     additionalScrapeConfigs:
-      - job_name: 'go-matrix-job'
-        metrics_path: '/metrics'
-        scheme: 'http'
+      - job_name: "go-matrix-job"
+        metrics_path: "/metrics"
+        scrape_interval: 1s
+        scheme: "http"
         static_configs:
-          - targets: ['go-matrix-api-service.application:3030']
-          # - labels:
-          #     app: 'go-matrix'
-          #     environment: 'production'
-          #     service: 'go-matrix-api'
-          #     namespace: 'application'
+          - targets: ["go-matrix-api-service.application:3030"]
+      - job_name: "node-matrix-job"
+        metrics_path: "/metrics"
+        scrape_interval: 1s
+        scheme: "http"
+        static_configs:
+          - targets: ["node-matrix-api-service.application:3031"]
+        # scrape_interval: 5s
+        # scrape_timeoout: 1s
+        # scrape_interval: 5s
+        # scrape_timeoout: 1s
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
