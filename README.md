@@ -213,7 +213,7 @@ Used to collect metrics from Windows nodes.
 
 The Helm chart deploys a full monitoring stack, including additional dependencies like Custom Resource Definitions (CRDs) that help configure and manage Prometheus, Grafana, and Alertmanager settings within the Kubernetes cluster. You can also customize the components via the `values.yaml` file, where components like `kube-state-metrics`, `node-exporter`, and `Grafana` can be enabled or disabled according to your needs.
 
-For more information, please refer to the official GitHub page [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/Chart.yaml).
+For more information, please refer to the official GitHub page [here](https://github.com/prometheus-community/helm-charts).
 
 
 ### Installation
@@ -366,3 +366,18 @@ Run a Load Test: Use k6 to test the performance of your APIs. Example:
 k6 run ./k6/response-react-test.js
 ```
 
+## Sources
+
+[Github Repo](https://github.com/kev5655/bfh-prometheus)
+
+**Main Sources**
+- [Prometheus Configurations](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
+- [Prometheus Helm Chart](https://github.com/prometheus-community/helm-charts)
+- [Youtube Guid K8s and Prometheus](https://www.youtube.com/watch?v=6xmWr7p5TE0&t=2747s)
+- [Youtube Prometheus Overview](https://www.youtube.com/watch?v=h4Sl21AKiDg)
+
+**Additional Sources**
+- [Kubernetes Docs](https://kubernetes.io/docs/home/)
+- [Helm Docs](https://helm.sh/docs/)
+- [Grafana Docs](https://grafana.com/docs/grafana/latest/)
+- [K6 Loadtesting](https://grafana.com/docs/k6/latest/)
