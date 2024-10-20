@@ -1,6 +1,6 @@
 # BHF-Prometheus: A Student Project to Introduce Prometheus
 
-## 1. Project Goal (for Students)
+## 1. Project Goal
 
 This project is part of a student project and aims to help other students better understand Prometheus as a monitoring tool. It demonstrates how metrics from Go and Node.js applications can be collected and visualized through Grafana.
 
